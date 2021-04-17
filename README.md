@@ -16,7 +16,7 @@
 
 ### Association
 - has_many :items
-- has_many :shopping
+- has_many :shoppings
 
 ## itemsテーブル
 
@@ -42,7 +42,7 @@
 
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
-| postal_code   | integer    | null: false                    |
+| postal_code   | string     | null: false                    |
 | prefecture_id | integer    | null: false                    |
 | municipality  | string     | null: false                    |
 | address       | string     | null: false                    |
@@ -52,7 +52,7 @@
 
 
 ### Association
-- has_one :shopping
+- belongs_to :shopping
 
 
 ## shoppingsテーブル
@@ -65,4 +65,4 @@
 ### Association
 - belongs_to :user
 - belongs_to :item
-- belongs_to :address
+- has_one :address
