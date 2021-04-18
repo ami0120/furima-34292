@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :nickname, presence: true
+  validates :encrypted_password, format: {with: /^[a-zA-Z0-9]+$/, message: 'Include both letters and numbers'}
   with_options presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: 'Full-width characters' } do
   validates :first_name
   validates :last_name
