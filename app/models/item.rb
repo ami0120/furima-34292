@@ -1,11 +1,13 @@
 class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to :category
 
   validates :image, presence: true
   validates :name, presence: true
   validates :text, presence: true
-  validates :category_id, presence: true
+  validates :category_id, presence: true,numericality: { other_than: 1 }
   validates :condition_id, presence: true
   validates :delivery_charge_id, presence: true
   validates :prefecture_id, presence: true
