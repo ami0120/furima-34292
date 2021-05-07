@@ -15,10 +15,10 @@ class Item < ApplicationRecord
             numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, message: 'Out of setting range' }
 
 extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :category
-  belongs_to :condition
-  belongs_to :delivery_charge
-  belongs_to :prefecture
-  belongs_to :days_to_ship
+  belongs_to_active_hash :category
+  belongs_to_active_hash :condition
+  belongs_to_active_hash :delivery_charge
+  belongs_to_active_hash :prefecture
+  belongs_to_active_hash :days_to_ship
   
 end
