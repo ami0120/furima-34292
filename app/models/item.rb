@@ -13,7 +13,7 @@ with_options presence: true do
   validates :days_to_ship_id, numericality: { other_than: 1 }
   validates :price, numericality: { only_integer: true, message: "Half-width number" }
 end
-  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "is out of setting range" }
+  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "is Out of setting range" }
 
 extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :category
