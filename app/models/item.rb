@@ -2,17 +2,18 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
 
-  validates :image, presence: true
-  validates :name, presence: true
-  validates :text, presence: true
+with_options presence: true do
+  validates :image
+  validates :name
+  validates :text
   validates :category_id, numericality: { other_than: 1 }
   validates :condition_id, numericality: { other_than: 1 }
   validates :delivery_charge_id, numericality: { other_than: 1 }
   validates :prefecture_id,  numericality: { other_than: 1 }
   validates :days_to_ship_id, numericality: { other_than: 1 }
-  validates :price, presence: true, format: { with: /\A[0-9]+\z/, message: 'Half-width number' }
-  validates :price,
-            numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, message: 'Out of setting range' }
+  validates :price, numericality: { only_integer: true, message: "Half-width number" }
+end
+  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "is out of setting range" }
 
 extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :category
