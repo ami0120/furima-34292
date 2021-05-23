@@ -32,25 +32,50 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Category is not a number")
       end
+      it 'idが1の選択肢を選択すると出品できない' do
+        @item.category_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category must be other than 1")
+      end
       it '商品の状態についての情報が必須であること' do
         @item.condition_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Condition is not a number")
+      end
+      it 'idが1の選択肢を選択すると出品できない' do
+        @item.condition_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Condition must be other than 1")
       end
       it '配送料の負担についての情報が必須であること' do
         @item.delivery_charge_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Delivery charge is not a number")
       end
+      it 'idが1の選択肢を選択すると出品できない' do
+        @item.delivery_charge_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Delivery charge must be other than 1")
+      end
       it '発送元の地域についての情報が必須であること' do
         @item.prefecture_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture is not a number")
       end
+      it 'idが1の選択肢を選択すると出品できない' do
+        @item.prefecture_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
+      end
       it '発送までの日数についての情報が必須であること' do
         @item.days_to_ship_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Days to ship is not a number")
+      end
+      it 'idが1の選択肢を選択すると出品できない' do
+        @item.days_to_ship_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Days to ship must be other than 1")
       end
       it '販売価格についての情報が必須であること' do
         @item.price = ''
@@ -62,11 +87,22 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is Out of setting range")
       end
+      it '販売価格は、10,000,000円以上では登録できないこと' do
+        @item.price = '200000000'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is Out of setting range")
+      end
       it '販売価格は半角数字のみ保存可能であること' do
         @item.price = '５００'
         @item.valid?
         expect(@item.errors.full_messages).to include("Price Half-width number","Price is Out of setting range")
       end
+      it '販売価格は半角英数字混合だと登録できないこと' do
+        @item.price = '4a30a'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price Half-width number","Price is Out of setting range")
+      end
+
     end
   end
 end

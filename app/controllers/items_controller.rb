@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :move_to_new_user_session, only: [:new]
+  before_action :move_to_new_user_session, only: [:new,:create]
   
   def index
   end

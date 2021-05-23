@@ -6,14 +6,18 @@ with_options presence: true do
   validates :image
   validates :name
   validates :text
-  validates :category_id, numericality: { other_than: 1 }
-  validates :condition_id, numericality: { other_than: 1 }
-  validates :delivery_charge_id, numericality: { other_than: 1 }
-  validates :prefecture_id,  numericality: { other_than: 1 }
-  validates :days_to_ship_id, numericality: { other_than: 1 }
-  validates :price, numericality: { only_integer: true, message: "Half-width number" }
-end
-  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "is Out of setting range" }
+  validates :price
+    with_options numericality:{ other_than: 1 } do
+     validates :category_id
+     validates :condition_id
+     validates :delivery_charge_id
+     validates :prefecture_id
+     validates :days_to_ship_id
+    end
+  end
+
+validates :price ,numericality: { only_integer: true, message: "Half-width number" } 
+validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "is Out of setting range" }
 
 extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :category
