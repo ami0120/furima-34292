@@ -6,7 +6,7 @@ class ShoppingAdress
     validates :postal_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/,message: "is invalid. Enter it as follows (e.g. 123-4567)"}
     validates :prefecture_id, numericality:{ other_than: 1 }
     validates :address
-    validates :phone_number,numericality: format: {with: /^(0{1}\d{10})$/}
+    validates :phone_number
     validates :user_id
     validates :item_id
   end
