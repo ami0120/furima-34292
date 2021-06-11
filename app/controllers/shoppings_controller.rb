@@ -1,4 +1,6 @@
 class ShoppingsController < ApplicationController
+  before_action :authenticate_user!, only: [:index]
+  before_action :move_to_show,only: [:index]
 
   def index
     @shopping_address = ShoppingAddress.new
@@ -9,7 +11,7 @@ class ShoppingsController < ApplicationController
   def create
     @shopping_address = ShoppingAddress.new(shopping_params)
     @item = Item.find(params[:item_id])
-    if @shopping_address.valid?
+    if @shopping_address.valid? 
        pay_item
        @shopping_address.save
        return redirect_to root_path
@@ -32,8 +34,15 @@ class ShoppingsController < ApplicationController
         card: shopping_params[:token],
         currency: 'jpy'
       )
+   end
+ 
+
+  def move_to_show
+    @item = Item.find(params[:item_id])
+     if current_user.id == @item.user_id || @item.shopping.present?
+      redirect_to items_path
+     end
   end
-  
 
 
 end
