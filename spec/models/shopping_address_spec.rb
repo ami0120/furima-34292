@@ -2,8 +2,11 @@ require 'rails_helper'
 
 RSpec.describe ShoppingAddress, type: :model do
     before do
-      @shopping_address = FactoryBot.build(:shopping_address)
-  end
+      @item = FactoryBot.create(:item)
+      @user = FactoryBot.create(:user)
+      @shopping_address = FactoryBot.build(:shopping_address,item_id: @item.id,user_id: @user.id) 
+      sleep 0.1
+    end
   
   describe '商品購入機能' do
     context '商品購入できるとき' do
@@ -62,6 +65,11 @@ RSpec.describe ShoppingAddress, type: :model do
         @shopping_address.valid?
         expect(@shopping_address.errors.full_messages).to include("Phone number is the wrong length (should be 11 characters)")
       end
+      it '12桁以上では登録できないこと' do
+        @shopping_address.phone_number ='123456789012'
+        @shopping_address.valid?
+        expect(@shopping_address.errors.full_messages).to include("Phone number is the wrong length (should be 11 characters)")
+       end
     end
   end
-  end
+end
