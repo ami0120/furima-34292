@@ -60,15 +60,10 @@ RSpec.describe ShoppingAddress, type: :model do
         @shopping_address.valid?
         expect(@shopping_address.errors.full_messages).to include("Phone number is not a number")
       end
-      it '電話番号は11桁の数値のみ保存可能なこと' do
-        @shopping_address.phone_number = '090'
-        @shopping_address.valid?
-        expect(@shopping_address.errors.full_messages).to include("Phone number is the wrong length (should be 11 characters)")
-      end
       it '12桁以上では登録できないこと' do
         @shopping_address.phone_number ='123456789012'
         @shopping_address.valid?
-        expect(@shopping_address.errors.full_messages).to include("Phone number is the wrong length (should be 11 characters)")
+        expect(@shopping_address.errors.full_messages).to include("Phone number is too long (maximum is 11 characters)")
        end
       it 'tokenが空では登録できないこと' do
         @shopping_address.token = ''
