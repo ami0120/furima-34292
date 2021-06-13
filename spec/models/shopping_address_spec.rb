@@ -70,6 +70,21 @@ RSpec.describe ShoppingAddress, type: :model do
         @shopping_address.valid?
         expect(@shopping_address.errors.full_messages).to include("Phone number is the wrong length (should be 11 characters)")
        end
+      it 'tokenが空では登録できないこと' do
+        @shopping_address.token = ''
+        @shopping_address.valid?
+        expect(@shopping_address.errors.full_messages).to include("Token can't be blank") 
+       end
+       it 'item_idが空では登録できないこと' do
+        @shopping_address.item_id = ''
+        @shopping_address.valid?
+        expect(@shopping_address.errors.full_messages).to include("Item can't be blank") 
+       end
+       it 'user_idが空では登録できないこと' do
+        @shopping_address.user_id = ''
+        @shopping_address.valid?
+        expect(@shopping_address.errors.full_messages).to include("User can't be blank") 
+       end
     end
   end
 end

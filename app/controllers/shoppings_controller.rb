@@ -1,16 +1,15 @@
 class ShoppingsController < ApplicationController
   before_action :authenticate_user!, only: [:index]
   before_action :move_to_show,only: [:index]
+  before_action :item_params,onli:[:index,:create]
 
   def index
     @shopping_address = ShoppingAddress.new
-    @item = Item.find(params[:item_id])
   end
 
 
   def create
     @shopping_address = ShoppingAddress.new(shopping_params)
-    @item = Item.find(params[:item_id])
     if @shopping_address.valid? 
        pay_item
        @shopping_address.save
@@ -44,5 +43,8 @@ class ShoppingsController < ApplicationController
      end
   end
 
+  def item_params
+    @item = Item.find(params[:item_id])
+  end
 
 end
