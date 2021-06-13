@@ -36,7 +36,7 @@ RSpec.describe ShoppingAddress, type: :model do
         expect(@shopping_address.errors.full_messages).to include("Prefecture can't be blank")
       end
       it '都道府県が1以外であること' do
-        @shopping_address.prefecture_id = '1'
+        @shopping_address.prefecture_id = 1
         @shopping_address.valid?
         expect(@shopping_address.errors.full_messages).to include("Prefecture must be other than 1")
       end

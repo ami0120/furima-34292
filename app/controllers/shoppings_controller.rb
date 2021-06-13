@@ -1,7 +1,8 @@
 class ShoppingsController < ApplicationController
   before_action :authenticate_user!, only: [:index]
+  before_action :item_params,only:[:index,:create]
   before_action :move_to_show,only: [:index]
-  before_action :item_params,onli:[:index,:create]
+
 
   def index
     @shopping_address = ShoppingAddress.new
@@ -29,7 +30,7 @@ class ShoppingsController < ApplicationController
   def pay_item
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
-        amount: Item.find(params[:item_id]).price,
+        amount: @item.price,
         card: shopping_params[:token],
         currency: 'jpy'
       )
@@ -37,7 +38,6 @@ class ShoppingsController < ApplicationController
  
 
   def move_to_show
-    @item = Item.find(params[:item_id])
      if current_user.id == @item.user_id || @item.shopping.present?
       redirect_to items_path
      end
