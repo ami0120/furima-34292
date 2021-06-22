@@ -3,7 +3,7 @@ function calc (){
   itemPrice.addEventListener("keyup",()=>{
     tax = parseInt(itemPrice.value * 0.1);
     const addTax = document.getElementById("add-tax-price");
-    addTax.innerHTML = `${tax}`
+    addTax.innerHTML = `${tax}円`
 
     prof = (itemPrice.value) - (tax)
     const priceContent = document.getElementById("profit");
