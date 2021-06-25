@@ -11,8 +11,8 @@ class ShoppingsController < ApplicationController
 
   def create
     @shopping_address = ShoppingAddress.new(shopping_params)
+    pay_item
     if @shopping_address.valid? 
-       pay_item
        @shopping_address.save
        return redirect_to root_path
     else
